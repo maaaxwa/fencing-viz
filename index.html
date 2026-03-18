@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Épée Fencing Visualizer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="ui-panel">
+    <div id="ui-header">
+      <h1>Épée Visualizer</h1>
+    </div>
+
+    <div id="mode-section">
+      <div class="section-label">Mode</div>
+      <div id="mode-selector">
+        <button class="mode-btn active" data-mode="defense">Defense</button>
+        <button class="mode-btn" data-mode="offense">Offense</button>
+      </div>
+    </div>
+
+    <div id="move-section">
+      <div class="section-label">Select Move</div>
+      <div id="move-list"></div>
+    </div>
+
+    <div id="camera-section">
+      <div class="section-label">Camera</div>
+      <div id="camera-selector">
+        <button class="cam-btn active" data-cam="third">3rd Person</button>
+        <button class="cam-btn" data-cam="pov">POV</button>
+        <button class="cam-btn" data-cam="free">Free</button>
+      </div>
+      <div id="free-cam-hint" style="display:none;">Drag to orbit · Scroll to zoom</div>
+    </div>
+
+    <div id="anim-section">
+      <button id="btn-play">▶ Play Animation</button>
+      <button id="btn-reset">↺ Reset</button>
+    </div>
+
+    <div id="info-section">
+      <div id="info-name"></div>
+      <div id="info-line"></div>
+      <div id="info-desc"></div>
+    </div>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <div id="labels-overlay">
+    <div id="label-attacker" class="fencer-label">Attacker</div>
+    <div id="label-defender" class="fencer-label">Defender</div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

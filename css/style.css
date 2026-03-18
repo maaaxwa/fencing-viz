@@ -1,0 +1,230 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  overflow: hidden;
+  display: flex;
+  height: 100vh;
+}
+
+#canvas-container {
+  flex: 1;
+  position: relative;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ── UI Panel ───────────────────────────────── */
+#ui-panel {
+  width: 240px;
+  min-width: 240px;
+  background: #161b22;
+  border-right: 1px solid #30363d;
+  padding: 16px 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 10;
+}
+
+#ui-header h1 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #79c0ff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+/* Mode buttons */
+#mode-selector {
+  display: flex;
+  gap: 6px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 7px 4px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #8b949e;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mode-btn:hover { border-color: #58a6ff; color: #e6edf3; }
+.mode-btn.active {
+  background: #1f3a5f;
+  border-color: #58a6ff;
+  color: #79c0ff;
+}
+
+/* Move list */
+#move-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.move-btn {
+  padding: 8px 10px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #c9d1d9;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  line-height: 1.3;
+}
+
+.move-btn:hover { background: #2d333b; border-color: #58a6ff; }
+.move-btn.active {
+  background: #1f3a5f;
+  border-color: #58a6ff;
+  color: #79c0ff;
+}
+
+.move-btn .move-num {
+  font-weight: 700;
+  margin-right: 4px;
+  color: #f0883e;
+}
+
+.move-btn .move-name { font-weight: 600; }
+.move-btn .move-line {
+  display: block;
+  font-size: 10px;
+  color: #8b949e;
+  margin-top: 1px;
+}
+
+/* Camera buttons */
+#camera-selector {
+  display: flex;
+  gap: 4px;
+}
+
+.cam-btn {
+  flex: 1;
+  padding: 6px 4px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #8b949e;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cam-btn:hover { border-color: #58a6ff; color: #e6edf3; }
+.cam-btn.active {
+  background: #1f3a5f;
+  border-color: #58a6ff;
+  color: #79c0ff;
+}
+
+#free-cam-hint {
+  font-size: 10px;
+  color: #6e7681;
+  margin-top: 5px;
+}
+
+/* Animation controls */
+#anim-section {
+  display: flex;
+  gap: 6px;
+}
+
+#btn-play, #btn-reset {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#btn-play {
+  background: #238636;
+  border: 1px solid #2ea043;
+  color: #fff;
+}
+#btn-play:hover { background: #2ea043; }
+
+#btn-reset {
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #8b949e;
+}
+#btn-reset:hover { border-color: #58a6ff; color: #e6edf3; }
+
+/* Info panel */
+#info-section {
+  padding: 10px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+}
+
+#info-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f0883e;
+  margin-bottom: 3px;
+}
+
+#info-line {
+  font-size: 11px;
+  color: #79c0ff;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+#info-desc {
+  font-size: 11px;
+  color: #8b949e;
+  line-height: 1.5;
+}
+
+/* Fencer labels overlay */
+#labels-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.fencer-label {
+  position: absolute;
+  background: rgba(22, 27, 34, 0.8);
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b949e;
+  display: none;
+}
