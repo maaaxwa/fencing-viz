@@ -33,9 +33,9 @@ const PI = Math.PI;
 // Back arm raised for balance.
 export const EN_GARDE = {
   // Body orientation
-  pelvis:    { x:  0.00, y:  0.40, z:  0.00 },  // turned ~23° right
+  pelvis:    { x:  0.00, y: -0.40, z:  0.00 },  // turned ~23° left (right shoulder forward)
   torso:     { x:  0.08, y:  0.00, z: -0.05 },  // slight forward lean
-  headGroup: { x: -0.10, y: -0.35, z:  0.00 },  // looking at opponent
+  headGroup: { x: -0.10, y:  0.35, z:  0.00 },  // looking at opponent (compensates pelvis turn)
 
   // Sword arm (right) – arm reaches forward, blade levelled at opponent
   rShoulder: { x: -1.40, y:  0.12, z: -0.15 },  // mostly forward, slightly outward
@@ -186,9 +186,9 @@ export const PARRY_8 = parryPose({
  * Lunge pose – arm fully extended, body leans forward, back leg straight.
  */
 export const LUNGE = {
-  pelvis:    { x:  0.00, y:  0.40, z:  0.00 },
+  pelvis:    { x:  0.00, y: -0.40, z:  0.00 },
   torso:     { x:  0.25, y:  0.00, z: -0.05 },  // lean forward significantly
-  headGroup: { x: -0.15, y: -0.35, z:  0.00 },
+  headGroup: { x: -0.15, y:  0.35, z:  0.00 },
 
   // Sword arm fully extended
   rShoulder: { x: -1.55, y:  0.08, z: -0.10 },

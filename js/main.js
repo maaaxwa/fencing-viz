@@ -70,6 +70,38 @@ scene.traverse(obj => {
 const defenderAnim = new Animator(defenderData.joints);
 const attackerAnim = new Animator(attackerData.joints);
 
+// ── Attacker position animation ───────────────────────────────────────────────
+const ATTACKER_START_Z = -1.8;
+let posSegs    = [];   // [{ toZ, duration }]
+let posSegIdx  = 0;
+let posElapsed = 0;
+let posFromZ   = ATTACKER_START_Z;
+let posPlaying = false;
+
+function startPosAnim(keyframes) {
+  posSegs    = keyframes;
+  posSegIdx  = 0;
+  posElapsed = 0;
+  posFromZ   = attackerRoot.position.z;
+  posPlaying = true;
+}
+
+function updatePosAnim(dt) {
+  if (!posPlaying || posSegs.length === 0) return;
+  posElapsed += dt;
+  const seg = posSegs[posSegIdx];
+  const raw = Math.min(posElapsed / seg.duration, 1.0);
+  const t   = raw * raw * (3 - 2 * raw); // smoothstep
+  attackerRoot.position.z = posFromZ + (seg.toZ - posFromZ) * t;
+  if (raw >= 1.0) {
+    attackerRoot.position.z = seg.toZ;
+    posFromZ = seg.toZ;
+    posSegIdx++;
+    posElapsed = 0;
+    if (posSegIdx >= posSegs.length) posPlaying = false;
+  }
+}
+
 // ── State ─────────────────────────────────────────────────────────────────────
 let currentMode   = 'defense';
 let currentMove   = DEFENSE_MOVES[0];
@@ -80,6 +112,8 @@ function resetToEnGarde() {
   attackerAnim.stop();
   defenderAnim.snap(EN_GARDE);
   attackerAnim.snap(EN_GARDE);
+  posPlaying = false;
+  attackerRoot.position.z = ATTACKER_START_Z;
 }
 
 function playDefenseAnimation(move) {
@@ -89,19 +123,23 @@ function playDefenseAnimation(move) {
     [EN_GARDE, move.defenderPose],
     [1.4],
   );
-  // Attacker: stays in en-garde (they attacked, but we focus on the parry)
+  // Attacker feints while advancing
   attackerAnim.play(
     [EN_GARDE, FEINT],
     [1.0],
   );
+  // Attacker advances from start into striking range
+  startPosAnim([
+    { toZ: -0.9, duration: 1.0 },
+  ]);
 }
 
 function playOffenseAnimation(move) {
   resetToEnGarde();
 
   // Phase 1: attacker feints (0 → 0.8s)
-  // Phase 2: defender parries (0.8 → 1.6s)
-  // Phase 3: attacker disengages + lunges (1.6 → 2.8s)
+  // Phase 2: defender parries (0.8 → 1.5s)
+  // Phase 3: attacker disengages + lunges (1.5 → 2.7s)
 
   const defenderPoses    = [EN_GARDE, EN_GARDE, move.parryTriggered];
   const defenderDuration = [0.8, 0.7];
@@ -111,6 +149,12 @@ function playOffenseAnimation(move) {
 
   defenderAnim.play(defenderPoses, defenderDuration);
   attackerAnim.play(attackerPoses, attackerDuration);
+
+  // Attacker advances: slight step-in during feint, then full lunge
+  startPosAnim([
+    { toZ: -1.2, duration: 0.8 },  // step in during feint
+    { toZ: -0.3, duration: 1.2 },  // lunge forward
+  ]);
 }
 
 // ── UI ────────────────────────────────────────────────────────────────────────
@@ -155,6 +199,7 @@ function animate() {
 
   defenderAnim.update(dt);
   attackerAnim.update(dt);
+  updatePosAnim(dt);
   controls.update();
 
   if (activeCamera === camPOV) {
