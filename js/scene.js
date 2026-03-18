@@ -2,8 +2,8 @@
  * Three.js scene setup: renderer, lights, floor, environment.
  */
 
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
 
 export function createScene(container) {
   // ── Renderer ─────────────────────────────────────────────────────────────

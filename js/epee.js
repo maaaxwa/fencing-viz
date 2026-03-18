@@ -18,7 +18,7 @@
  * (+Z), the weapon's local -Y also maps to +Z (forward).
  */
 
-import * as THREE from 'three';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
 // Épée dimensions (metres)
 const GRIP_H   = 0.14;
