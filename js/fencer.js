@@ -13,7 +13,7 @@
  * En-garde height ~1.60 m (knees bent from 1.78 m standing).
  */
 
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE from 'three';
 
 // ── Dimensions (metres) ──────────────────────────────────────────────────────
 const D = {

@@ -10,7 +10,7 @@
  * the attacker uses a mirrored version for offense sequences.
  */
 
-import * as THREE           from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE           from 'three';
 import { createScene, updatePOVCamera } from './scene.js';
 import { buildFencer, applyPose }       from './fencer.js';
 import { buildEpee }                    from './epee.js';
